@@ -1,0 +1,44 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+    % IMPORT-DATA ra results_final/random_access_filter.txt
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit Random Access (Escherichia\_Coli, 3 Iterationen, 112 MB)},
+        xlabel={Anfragen in Mio.},
+        ylabel={Zeit in sec},
+        legend pos=north west
+        ]
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="recompression" AND dataset="Escherichia\_Coli" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,9.60267) (10,19.136) (15,28.775) (20,38.3733) (25,47.9407) (30,57.487) (35,66.931) (40,76.4777) (45,86.1597) (50,95.7583) };
+        \addlegendentry{recompression};
+
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="prezza" AND dataset="Escherichia\_Coli" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,0.977) (10,1.955) (15,2.93) (20,3.90767) (25,4.88267) (30,5.85933) (35,6.83833) (40,7.81367) (45,8.79033) (50,9.76567) };
+        \addlegendentry{prezza};
+
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="rmq" AND dataset="Escherichia\_Coli" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="naive" AND dataset="Escherichia\_Coli" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,0.728333) (10,1.467) (15,2.189) (20,2.92233) (25,3.66433) (30,4.38533) (35,5.119) (40,5.86433) (45,6.59333) (50,7.33233) };
+        \addlegendentry{naive};
+
+\end{axis}
+    \end{tikzpicture}
+\end{document}

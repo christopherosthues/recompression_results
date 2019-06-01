@@ -1,0 +1,82 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+    % IMPORT-DATA recomp results_final/fin/memory.txt
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Vergleich des Speicherverbrauchs (einstein.de.txt, 92 MB)},
+        xlabel={Kerne},
+        ylabel={Größe in GB},
+        legend cell align=left,
+        legend pos=outer north east
+        ]
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,1.06217) (2,1.0644) (4,1.06869) (6,1.07297) (8,1.07725) (10,1.08153) (12,1.08581) (14,1.09009) (16,1.09437) (18,1.09866) (20,1.10294) };
+        \addlegendentry{\parallelrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_lp_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,1.06217) (2,1.0644) (4,1.06869) (6,1.07297) (8,1.07725) (10,1.08153) (12,1.08581) (14,1.09009) (16,1.09437) (18,1.09866) (20,1.10294) };
+        \addlegendentry{\parallellprecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnd_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,1.06217) (2,1.0644) (4,1.06868) (6,1.07297) (8,1.07725) (10,1.08153) (12,1.08581) (14,1.09009) (16,1.09437) (18,1.09865) (20,1.10294) };
+        \addlegendentry{\parallelrndrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_ls_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,1.06217) (2,1.0644) (4,1.06868) (6,1.07297) (8,1.07725) (10,1.08153) (12,1.08581) (14,1.09009) (16,1.09437) (18,1.09866) (20,1.10294) };
+        \addlegendentry{\parallellsrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_gr_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,1.06217) (2,1.0644) (4,1.06868) (6,1.07297) (8,1.07725) (10,1.08153) (12,1.08581) (14,1.09009) (16,1.09437) (18,1.09865) (20,1.10294) };
+        \addlegendentry{\parallelgrrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnd10_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,1.06217) (2,1.0644) (4,1.06868) (6,1.07297) (8,1.07725) (10,1.08153) (12,1.08581) (14,1.09009) (16,1.09437) (18,1.09865) (20,1.10294) };
+        \addlegendentry{\parallelrndkrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnddir10_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,1.06217) (2,1.0644) (4,1.06868) (6,1.07297) (8,1.07725) (10,1.08153) (12,1.08581) (14,1.09009) (16,1.09437) (18,1.09865) (20,1.10294) };
+        \addlegendentry{\parallelrnddirkrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="fast_seq_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,0.791504) };
+        \addlegendentry{\fastseqrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="hash_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,0.724389) };
+        \addlegendentry{\hashrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="naive_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,0.665312) };
+        \addlegendentry{\naiverecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="esp" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,0.450624) };
+        \addlegendentry{\esp};
+
+\end{axis}
+    \end{tikzpicture}
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+    % IMPORT-DATA ra results_final/long_lce_queries_filter.txt
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit lange LCE-Queries (dblp.xml, 3 Iterationen, 296 MB)},
+        xlabel={Anfragen in Mio.},
+        ylabel={Zeit in sec},
+        legend pos=north west
+        ]
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="recompression" AND dataset="dblp.xml" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,84.5367) (10,166.125) (15,246.997) (20,326.939) (25,404.79) (30,464.882) (35,552.666) (40,612.19) (45,686.253) (50,764.105) };
+        \addlegendentry{recompression};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="prezza" AND dataset="dblp.xml" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,39.4587) (10,77.69) (15,115.356) (20,151.879) (25,188.101) (30,217.686) (35,255.628) (40,286.822) (45,319.171) (50,353.384) };
+        \addlegendentry{prezza};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="rmq" AND dataset="dblp.xml" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,50.9013) (10,96.24) (15,139.773) (20,180.837) (25,218.037) (30,266.925) (35,291.401) (40,340.774) (45,379.488) (50,424.657) };
+        \addlegendentry{rmq};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="naive" AND dataset="dblp.xml" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,1.21967) (10,2.568) (15,3.85733) (20,5.095) (25,6.255) (30,5.30567) (35,7.65067) (40,6.76367) (45,7.46567) (50,8.174) };
+        \addlegendentry{naive};
+
+        \end{axis}
+    \end{tikzpicture}
+\end{document}

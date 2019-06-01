@@ -1,0 +1,56 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit - Produktionen (coreutils, 20 Kerne, 3 Iterationen)},
+        xlabel={Produktionen in Mio.},
+        ylabel={Zeit in sec},
+        bar shift=0pt,
+        x filter/.code={\pgfmathparse{#1/1000000}\pgfmathresult},
+        y filter/.code={\pgfmathparse{#1/1000}\pgfmathresult},
+        yticklabel style={/pgf/number format/precision=2},
+        legend pos=outer north east
+        ]
+        \addplot[only marks,parrec] coordinates {
+                    (3399440, 19396)(3399440, 17943)(3399440, 17960)
+        };
+        \addlegendentry{\parallelrecomp};
+        \addplot[only marks,parlp] coordinates {
+                    (3290212, 17876)(3290212, 17830)(3290212, 17917)
+        };
+        \addlegendentry{\parallellprecomp};
+        \addplot[only marks,parrnd] coordinates {
+                    (3952424, 14147)(3937087, 13434)(3922196, 13339)
+        };
+        \addlegendentry{\parallelrndrecomp};
+        \addplot[only marks,parls] coordinates {
+                    (3704548, 27858)(3718605, 23783)(3879524, 32694)
+        };
+        \addlegendentry{\parallellsrecomp};
+        \addplot[only marks,pargr] coordinates {
+                    (3874334, 13973)(3831548, 13607)(3875200, 13909)
+        };
+        \addlegendentry{\parallelgrrecomp};
+        \addplot[only marks,parrndk] coordinates {
+                    (3911687, 21035)(3861743, 21089)(3895938, 20956)
+        };
+        \addlegendentry{\parallelrndkrecomp};
+        \addplot[only marks,parrnddirk] coordinates {
+                    (3911656, 20712)(3889106, 20525)(3908825, 20831)
+        };
+        \addlegendentry{\parallelrnddirkrecomp};
+\end{axis}
+    \end{tikzpicture}\end{document}

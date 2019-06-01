@@ -1,0 +1,45 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+
+    % IMPORT-DATA ra results_final/long_lce_queries_filter.txt
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit lange LCE-Queries (fib41, 3 Iterationen, 267 MB)},
+        xlabel={Anfragen in Mio.},
+        ylabel={Zeit in sec},
+        legend pos=north west
+        ]
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="recompression" AND dataset="fib41" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,171.703) (10,334.253) (15,493.082) (20,651.15) (25,809.65) (30,968.165) (35,1127.39) (40,1286.536) (45,1444.77) (50,1603.352) };
+        \addlegendentry{recompression};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="prezza" AND dataset="fib41" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,88.345) (10,175.572) (15,261.264) (20,348.328) (25,433.557) (30,517.647) (35,605.3) (40,692.924) (45,780.322) (50,866.654) };
+        \addlegendentry{prezza};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="rmq" AND dataset="fib41" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,16.1173) (10,32.252) (15,54.5833) (20,72.64) (25,90.7807) (30,108.924) (35,127.078) (40,139.899) (45,145.396) (50,161.545) };
+        \addlegendentry{rmq};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="naive" AND dataset="fib41" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+
+\end{axis}
+    \end{tikzpicture}
+\end{document}

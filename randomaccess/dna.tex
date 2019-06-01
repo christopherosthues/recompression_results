@@ -1,0 +1,44 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+    % IMPORT-DATA ra results_final/random_access_filter.txt
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit Random Access (dna, 3 Iterationen, 403 MB)},
+        xlabel={Anfragen in Mio.},
+        ylabel={Zeit in sec},
+        legend pos=north west
+        ]
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="recompression" AND dataset="dna" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,12.59) (10,25.2183) (15,37.8047) (20,50.3753) (25,62.9743) (30,75.5593) (35,88.1373) (40,100.714) (45,128.492) (50,155.237) };
+        \addlegendentry{recompression};
+
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="prezza" AND dataset="dna" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,1.034) (10,2.069) (15,3.102) (20,4.136) (25,5.17) (30,6.20467) (35,7.23833) (40,8.273) (45,11.025) (50,13.102) };
+        \addlegendentry{prezza};
+
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="rmq" AND dataset="dna" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="naive" AND dataset="dna" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,0.783) (10,1.565) (15,2.35167) (20,3.13333) (25,3.919) (30,4.70433) (35,5.48767) (40,6.271) (45,8.74533) (50,10.6013) };
+        \addlegendentry{naive};
+
+\end{axis}
+    \end{tikzpicture}
+\end{document}

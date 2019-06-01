@@ -1,0 +1,66 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+
+\pgfplotsset{
+    width=150mm,height=100mm,
+    major grid style={thin,dotted,color=black!50},
+    minor grid style={thin,dotted,color=black!50},
+    grid,
+    every axis/.append style={
+        line width=0.5pt,
+        tick style={
+            line cap=round,
+            thin,
+            major tick length=4pt,
+            minor tick length=2pt,
+        },
+    },
+    legend cell align=left,
+    legend pos=north west,
+}
+
+\begin{document}
+
+    % IMPORT-DATA ra results_final/lce_queries_filter.txt
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit zufällige LCE-Queries (dna, 3 Iterationen, 403 MB)},
+        xlabel={Anfragen in Mio.},
+        ylabel={Zeit in sec},
+        legend pos=north west
+        ]
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="recompression" AND dataset="dna" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,61.392) (10,122.931) (15,184.375) (20,245.783) (25,307.298) (30,368.603) (35,430.299) (40,491.675) (45,552.703) (50,614.145) };
+        \addlegendentry{recompression};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="prezza" AND dataset="dna" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,3.47167) (10,6.931) (15,10.3977) (20,13.8633) (25,17.3277) (30,20.792) (35,24.2637) (40,27.7277) (45,31.1917) (50,34.6573) };
+        \addlegendentry{prezza};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="rmq" AND dataset="dna" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,137.559) (10,275.016) (15,412.6) (20,550.231) (25,687.778) (30,825.289) (35,963.144) (40,1100.87) (45,1238.32) (50,1375.305) };
+        \addlegendentry{rmq};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="naive" AND dataset="dna" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,0.264333) (10,0.528667) (15,0.797667) (20,1.057) (25,1.323) (30,1.589) (35,1.849) (40,2.115) (45,2.39) (50,2.65633) };
+        \addlegendentry{naive};
+
+\end{axis}
+    \end{tikzpicture}
+\end{document}

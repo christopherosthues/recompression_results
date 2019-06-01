@@ -1,0 +1,44 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+    % IMPORT-DATA ra results_final/random_access_filter.txt
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit Random Access (sources, 3 Iterationen, 210 MB)},
+        xlabel={Anfragen in Mio.},
+        ylabel={Zeit in sec},
+        legend pos=north west
+        ]
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="recompression" AND dataset="sources" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,11.7813) (10,23.5517) (15,35.3617) (20,47.113) (25,58.939) (30,70.73) (35,82.5183) (40,94.2957) (45,106.022) (50,117.91) };
+        \addlegendentry{recompression};
+
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="prezza" AND dataset="sources" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,1.02033) (10,2.034) (15,3.054) (20,4.07033) (25,5.087) (30,6.10333) (35,7.12233) (40,8.137) (45,9.153) (50,10.1723) };
+        \addlegendentry{prezza};
+
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="rmq" AND dataset="sources" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+
+        %% MULTIPLOT(algo) SELECT accesses / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="naive" AND dataset="sources" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,0.769) (10,1.53433) (15,2.30333) (20,3.072) (25,3.84) (30,4.60833) (35,5.37367) (40,6.14467) (45,6.91033) (50,7.68133) };
+        \addlegendentry{naive};
+
+        \end{axis}
+    \end{tikzpicture}
+\end{document}

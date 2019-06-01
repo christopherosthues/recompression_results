@@ -1,0 +1,56 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Größe des Alphabets (proteins, 3 Iterationen, Schicht 29)},
+        xlabel={Kerne},
+        ylabel={Größe des Alphabets in Mio.},
+        bar shift=0pt,
+        yticklabel style={/pgf/number format/precision=2},
+        y filter/.code={\pgfmathparse{#1/1000000}\pgfmathresult},
+        legend pos=outer north east
+        ]
+        \addplot coordinates {
+                    (1, 150403630.0)(2, 150403630.0)(4, 150403630.0)(6, 150403630.0)(8, 150403630.0)(10, 150403630.0)(12, 150403630.0)(14, 150403630.0)(16, 150403630.0)(18, 150403630.0)(20, 150403630.0)
+        };
+        \addlegendentry{\parallelrecomp};
+        \addplot coordinates {
+                    (1, 150169759.0)(2, 150169759.0)(4, 150169759.0)(6, 150169759.0)(8, 150169759.0)(10, 150169759.0)(12, 150169759.0)(14, 150169759.0)(16, 150169759.0)(18, 150169759.0)(20, 150169759.0)
+        };
+        \addlegendentry{\parallellprecomp};
+        \addplot coordinates {
+                    (1, 143471275.66666666)(2, 143704431.66666666)(4, 143868201.33333334)(6, 143544137.66666666)(8, 143570545.0)(10, 143452146.66666666)(12, 143500319.66666666)(14, 143961668.33333334)(16, 143498666.66666666)(18, 143450860.66666666)(20, 143619404.0)
+        };
+        \addlegendentry{\parallelrndrecomp};
+        \addplot coordinates {
+                    (1, 18620216.0)(2, 16062335.333333334)(4, 23832535.666666668)(6, 25983631.0)(8, 17573298.666666668)(10, 21562944.666666668)(12, 28066283.333333332)(14, 26258935.0)(16, 21618686.0)(18, 23101493.333333332)(20, 26706520.666666668)
+        };
+        \addlegendentry{\parallellsrecomp};
+        \addplot coordinates {
+                    (1, 143389538.66666666)(2, 143287014.33333334)(4, 143312930.66666666)(6, 143320926.66666666)(8, 143402684.33333334)(10, 143317018.66666666)(12, 143487429.33333334)(14, 143290077.0)(16, 143396053.0)(18, 143231754.0)(20, 143559735.0)
+        };
+        \addlegendentry{\parallelgrrecomp};
+        \addplot coordinates {
+                    (1, 143359543.66666666)(2, 143387170.0)(4, 143574039.33333334)(6, 143672700.66666666)(8, 143504790.33333334)(10, 143425008.33333334)(12, 143432121.33333334)(14, 143680738.33333334)(16, 143692549.66666666)(18, 143590916.66666666)(20, 143538707.66666666)
+        };
+        \addlegendentry{\parallelrndkrecomp};
+        \addplot coordinates {
+                    (1, 143386699.66666666)(2, 143530432.0)(4, 143717083.33333334)(6, 143593293.0)(8, 143732677.0)(10, 143438196.66666666)(12, 143578826.66666666)(14, 143339930.33333334)(16, 143577088.0)(18, 143590015.33333334)(20, 143562025.33333334)
+        };
+        \addlegendentry{\parallelrnddirkrecomp};
+\end{axis}
+    \end{tikzpicture}
+\end{document}

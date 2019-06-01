@@ -1,0 +1,57 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit - Produktionen (coreutils, 1 Kern, 3 Iterationen)},
+        xlabel={Produktionen in Mio.},
+        ylabel={Zeit in min},
+        bar shift=0pt,
+        x filter/.code={\pgfmathparse{#1/1000000}\pgfmathresult},
+        y filter/.code={\pgfmathparse{#1/60000}\pgfmathresult},
+        yticklabel style={/pgf/number format/precision=2},
+        legend pos=outer north east
+        ]
+        \addplot[only marks,parrec] coordinates {
+                    (3399440, 140666)(3399440, 139800)(3399440, 139702)
+        };
+        \addlegendentry{\parallelrecomp};
+        \addplot[only marks,parlp] coordinates {
+                    (3290212, 143691)(3290212, 142475)(3290212, 142261)
+        };
+        \addlegendentry{\parallellprecomp};
+        \addplot[only marks,parrnd] coordinates {
+                    (3919213, 184803)(3924581, 186279)(3916803, 190886)
+        };
+        \addlegendentry{\parallelrndrecomp};
+        \addplot[only marks,parls] coordinates {
+                    (4066029, 311459)(3839522, 303202)(3864990, 233651)
+        };
+        \addlegendentry{\parallellsrecomp};
+        \addplot[only marks,pargr] coordinates {
+                    (3854499, 185465)(3865795, 185309)(3845944, 186626)
+        };
+        \addlegendentry{\parallelgrrecomp};
+        \addplot[only marks,parrndk] coordinates {
+                    (3893008, 290476)(3934370, 283509)(3919913, 277001)
+        };
+        \addlegendentry{\parallelrndkrecomp};
+        \addplot[only marks,parrnddirk] coordinates {
+                    (3882142, 274688)(3874052, 272926)(3852440, 274006)
+        };
+        \addlegendentry{\parallelrnddirkrecomp};
+\end{axis}
+    \end{tikzpicture}
+    \end{document}

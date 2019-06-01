@@ -1,0 +1,61 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\input{../header}
+
+\begin{document}
+% IMPORT-DATA coder coders.txt
+% IMPORT-DATA sizes file_sizes.txt
+\begin{tabular}{|l||r|r|r|r|r|r|r|r|}
+	\hline
+	Datensatz & fixed & fixed\_prod & sorted\_prod & ESP & gzip -1 & gzip -9 & bzip2 -1 & bzip2 -9 \\ \hline\hline
+	%% TABULAR REFORMAT(col 1-9=(precision=3) row 0-11=(min=bold max=emph))
+	%% SELECT s.dataset AS x,
+	%% (SELECT (enc_size * 1.0 / size) FROM coder s1 WHERE s1.dataset = s.dataset AND s1.coder = "fixed" GROUP BY s1.dataset),
+	%% (SELECT (enc_size * 1.0 / size) FROM coder s1 WHERE s1.dataset = s.dataset AND s1.coder = "fixed_lp" GROUP BY s1.dataset),
+	%% (SELECT (enc_size * 1.0 / size) FROM coder s1 WHERE s1.dataset = s.dataset AND s1.coder = "sorted" GROUP BY s1.dataset),
+	%% (SELECT (enc_size * 1.0 / size) FROM coder s1 WHERE s1.dataset = s.dataset AND s1.coder = "esp_sorted_plain" GROUP BY s1.dataset),
+	%% (SELECT (enc_size * 1.0 / size) FROM coder s1 WHERE s1.dataset = s.dataset AND s1.coder = "gzip_1" GROUP BY s1.dataset),
+	%% (SELECT (enc_size * 1.0 / size) FROM coder s1 WHERE s1.dataset = s.dataset AND s1.coder = "gzip_9" GROUP BY s1.dataset),
+	%% (SELECT (enc_size * 1.0 / size) FROM coder s1 WHERE s1.dataset = s.dataset AND s1.coder = "bzip2_1" GROUP BY s1.dataset),
+	%% (SELECT (enc_size * 1.0 / size) FROM coder s1 WHERE s1.dataset = s.dataset AND s1.coder = "bzip2_9" GROUP BY s1.dataset)
+	%% FROM coder s GROUP BY s.dataset
+Escherichia\_Coli &        0.229 &        0.229 & \textbf{0.124} & 0.144 & \emph{0.329} & 0.280 & 0.272 &          0.270 \\
+      coreutils &        0.091 &        0.088 & \textbf{0.048} & 0.060 & \emph{0.298} & 0.243 & 0.225 &          0.160 \\
+       dblp.xml &        0.440 & \emph{0.440} &          0.238 & 0.278 &        0.210 & 0.170 & 0.144 & \textbf{0.114} \\
+            dna & \emph{0.773} &        0.773 &          0.416 & 0.417 &        0.325 & 0.269 & 0.264 & \textbf{0.258} \\
+einstein.de.txt &        0.005 &        0.004 & \textbf{0.002} & 0.004 & \emph{0.392} & 0.310 & 0.235 &          0.043 \\
+einstein.en.txt &        0.003 &        0.003 & \textbf{0.001} & 0.002 & \emph{0.415} & 0.350 & 0.269 &          0.052 \\
+        english & \emph{0.661} &        0.611 &          0.327 & 0.383 &        0.451 & 0.378 & 0.329 & \textbf{0.284} \\
+          fib41 &        0.000 &        0.000 & \textbf{0.000} & 0.000 & \emph{0.015} & 0.004 & 0.000 &          0.000 \\
+         kernel &        0.037 &        0.037 & \textbf{0.020} & 0.026 & \emph{0.328} & 0.269 & 0.253 &          0.217 \\
+       proteins & \emph{0.899} &        0.898 &          0.481 & 0.488 &        0.471 & 0.447 & 0.443 & \textbf{0.431} \\
+        sources & \emph{0.740} &        0.740 &          0.399 & 0.460 &        0.280 & 0.224 & 0.213 & \textbf{0.187} \\
+ world\_leaders &        0.051 &        0.045 & \textbf{0.025} & 0.039 & \emph{0.218} & 0.176 & 0.146 &          0.069 \\
+ \hline
+% END TABULAR SELECT s.dataset AS x, (SELECT (enc_size * 1.0 / size) FROM co...)
+\end{tabular}
+%\begin{tabular}{r}
+%	Dateigröße (MB) \\ \hline
+%	%% TABULAR
+%	%% SELECT (size / 1000 / 1000) FROM sizes s1 GROUP BY s1.dataset
+%112 \\
+%205 \\
+%296 \\
+%403 \\
+%92 \\
+%467 \\
+%2210 \\
+%267 \\
+%257 \\
+%1184 \\
+%210 \\
+%46 \\
+%% END TABULAR SELECT (size / 1000 / 1000) FROM sizes s1 GROUP BY s1.dataset
+%\end{tabular}
+\end{document}

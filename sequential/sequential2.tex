@@ -1,0 +1,69 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+
+    \begin{tikzpicture}
+        \begin{semilogyaxis}[
+        cycle list name=mycolorlist,
+        log basis y=10,
+        title={Vergleich der Laufzeit zu den sequentiellen Verfahren (3 Iterationen, 2 Kerne)},
+        title style={yshift=2.5ex,},
+        ylabel={Zeit in sec},
+        symbolic x coords={english,proteins,dna,dblp.xml,sources,einstein.en.txt,kernel,coreutils,Escherichia\_Coli,einstein.de.txt,world\_leaders,fib41},
+        xtick=data,
+        nodes near coords align={vertical},
+        x tick label style={rotate=45,anchor=east},
+        legend pos=outer north east
+        ]
+        \addplot coordinates {
+                    (english, 1144.631)(proteins, 723.6936666666667)(dna, 142.36733333333333)(dblp.xml, 118.04266666666668)(sources, 94.73366666666666)(einstein.en.txt, 172.05466666666666)(kernel, 104.634)(coreutils, 81.01233333333333)(Escherichia\_Coli, 34.46066666666666)(einstein.de.txt, 32.34866666666667)(world\_leaders, 8.754)(fib41, 12.490333333333334)
+        };
+        \addlegendentry{\parallelrecomp};
+        \addplot coordinates {
+                    (english, 1206.194)(proteins, 751.4806666666666)(dna, 148.36366666666666)(dblp.xml, 122.91666666666667)(sources, 96.78333333333333)(einstein.en.txt, 180.193)(kernel, 108.59466666666667)(coreutils, 83.91966666666667)(Escherichia\_Coli, 35.66733333333334)(einstein.de.txt, 33.74)(world\_leaders, 8.809)(fib41, 13.455666666666666)
+        };
+        \addlegendentry{\parallellprecomp};
+        \addplot coordinates {
+                    (english, 1438.2086666666667)(proteins, 886.8763333333334)(dna, 189.35766666666666)(dblp.xml, 155.22466666666665)(sources, 133.944)(einstein.en.txt, 210.67533333333336)(kernel, 131.343)(coreutils, 104.49666666666667)(Escherichia\_Coli, 45.459)(einstein.de.txt, 40.23866666666667)(world\_leaders, 11.803666666666667)(fib41, 19.567666666666668)
+        };
+        \addlegendentry{\parallelrndrecomp};
+        \addplot coordinates {
+                    (english, 2324.4293333333335)(proteins, 3181.8446666666664)(dna, 316.885)(dblp.xml, 226.69266666666667)(sources, 186.99566666666666)(einstein.en.txt, 358.6133333333333)(kernel, 200.385)(coreutils, 143.63666666666666)(Escherichia\_Coli, 80.58766666666668)(einstein.de.txt, 64.50566666666667)(world\_leaders, 16.892)(fib41, 18.507)
+        };
+        \addlegendentry{\parallellsrecomp};
+        \addplot coordinates {
+                    (english, 1592.891)(proteins, 928.0916666666666)(dna, 205.00566666666666)(dblp.xml, 160.75033333333334)(sources, 133.43466666666666)(einstein.en.txt, 216.44233333333335)(kernel, 130.22333333333333)(coreutils, 101.55866666666667)(Escherichia\_Coli, 46.663333333333334)(einstein.de.txt, 40.044666666666664)(world\_leaders, 11.020333333333333)(fib41, 13.739333333333335)
+        };
+        \addlegendentry{\parallelgrrecomp};
+        \addplot coordinates {
+                    (english, 3154.0783333333334)(proteins, 1829.174)(dna, 427.9443333333333)(dblp.xml, 302.0096666666667)(sources, 271.2043333333333)(einstein.en.txt, 343.2656666666667)(kernel, 200.654)(coreutils, 163.067)(Escherichia\_Coli, 77.033)(einstein.de.txt, 62.532)(world\_leaders, 17.23166666666667)(fib41, 21.60966666666667)
+        };
+        \addlegendentry{\parallelrndkrecomp};
+        \addplot coordinates {
+                    (english, 3161.5783333333334)(proteins, 1852.204)(dna, 440.9583333333333)(dblp.xml, 301.6173333333333)(sources, 275.16433333333333)(einstein.en.txt, 333.14733333333334)(kernel, 196.45966666666666)(coreutils, 160.262)(Escherichia\_Coli, 77.067)(einstein.de.txt, 59.931)(world\_leaders, 16.99233333333333)(fib41, 21.204)
+        };
+        \addlegendentry{\parallelrnddirkrecomp};
+        \addplot coordinates {
+                    (english, 2959.317)(proteins, 1742.1136666666666)(dna, 388.18466666666666)(dblp.xml, 189.844)(sources, 185.28733333333335)(einstein.en.txt, 158.22533333333334)(kernel, 114.12866666666667)(coreutils, 96.67066666666668)(Escherichia\_Coli, 55.843666666666664)(einstein.de.txt, 27.374666666666666)(world\_leaders, 8.874333333333334)(fib41, 14.457666666666666)
+        };
+        \addlegendentry{\fastseqrecomp};
+        \addplot coordinates {
+                    (english, 8341.237333333333)(proteins, 7027.375666666667)(dna, 1063.547)(dblp.xml, 478.1116666666667)(sources, 431.9546666666667)(einstein.en.txt, 304.927)(kernel, 256.30366666666663)(coreutils, 260.302)(Escherichia\_Coli, 133.03166666666667)(einstein.de.txt, 53.00966666666666)(world\_leaders, 18.30933333333333)(fib41, 35.43266666666666)
+        };
+        \addlegendentry{\hashrecomp};
+        \addplot coordinates {
+                    (english, 12747.357666666667)(proteins, 8104.500333333333)(dna, 1398.368)(dblp.xml, 796.167)(sources, 763.2793333333334)(einstein.en.txt, 626.3203333333333)(kernel, 510.4193333333333)(coreutils, 448.1073333333333)(Escherichia\_Coli, 219.017)(einstein.de.txt, 110.36066666666667)(world\_leaders, 37.089333333333336)(fib41, 9.299666666666665)
+        };
+        \addlegendentry{\naiverecomp};
+\end{semilogyaxis}
+    \end{tikzpicture}\end{document}

@@ -1,0 +1,259 @@
+\usepackage[pdftex]{color}
+
+\usepackage{rotating}
+
+\usepackage[margin=0pt,font=small,labelfont=bf]{caption}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{varwidth}
+\usepackage{xspace}
+\usetikzlibrary{matrix, arrows, calc, positioning, decorations, arrows.meta, fit, shapes.geometric,decorations.pathreplacing}
+
+\pgfdeclaredecoration{sl}{initial}{
+	\state{initial}[width=\pgfdecoratedpathlength-1sp]{
+		\pgfmoveto{\pgfpointorigin}
+	}
+	\state{final}{
+		\pgflineto{\pgfpointorigin}
+	}
+}
+
+\definecolor{p1}{named}{blue}
+\definecolor{p2}{named}{red}
+\definecolor{p3}{rgb}{0.0,0.8,0.1}
+\definecolor{p4}{rgb}{0.8,0.8,0.0}
+\definecolor{p5}{named}{orange}
+\definecolor{p6}{named}{cyan}
+\definecolor{p7}{named}{magenta}
+\definecolor{p8}{named}{gray}
+
+\definecolor{per1}{rgb}{0.0, 0.0, 1.0}
+\definecolor{per2}{rgb}{0.0, 0.5, 1.0}
+\definecolor{per3}{rgb}{0.19, 0.55, 0.91}
+\definecolor{per4}{rgb}{0.11, 0.67, 0.84}
+\definecolor{per5}{rgb}{0.36, 0.54, 0.66}
+\definecolor{per6}{rgb}{0.0, 0.81, 0.82}
+\definecolor{per7}{rgb}{0.03, 0.91, 0.87}
+\definecolor{per8}{rgb}{0.0, 0.8, 0.6}
+\definecolor{per9}{rgb}{0.67, 0.88, 0.69}
+\definecolor{per10}{rgb}{0.52, 0.73, 0.4}
+\definecolor{per11}{rgb}{0.5, 1.0, 0.0}
+\definecolor{per12}{rgb}{0.8, 1.0, 0.0}
+\definecolor{per13}{rgb}{0.6, 0.98, 0.6}
+\definecolor{per14}{rgb}{0.99, 0.97, 0.37}
+\definecolor{per15}{rgb}{0.98, 0.85, 0.37}
+\definecolor{per16}{rgb}{1.0, 0.62, 0.0}
+\definecolor{per17}{rgb}{0.93, 0.51, 0.93}
+\definecolor{per18}{rgb}{0.9, 0.4, 0.38}
+\definecolor{per19}{rgb}{1.0, 0.71, 0.76}
+\definecolor{per20}{rgb}{0.99, 0.74, 0.71}
+\definecolor{per21}{rgb}{0.89, 0.02, 0.17}
+\definecolor{per22}{rgb}{1.0, 0.27, 0.0}
+\definecolor{per23}{rgb}{0.68, 0.05, 0.0}
+\definecolor{per24}{rgb}{0.51, 0.41, 0.33}
+\definecolor{per25}{rgb}{0.85, 0.54, 0.4}
+
+\definecolor{match}{rgb}{0.99,0.78,0.07}
+\definecolor{bcp}{named}{blue}
+\definecolor{pcp}{rgb}{0.17,0.78,0.15}
+
+\tikzset{parallel arrow/.style={latex-,pcp,
+		shorten >=0mm, shorten <=0mm, 
+		decoration={sl,raise=1mm},decorate}}
+\tikzset{parallel arrow1/.style={latex-,pcp,
+		shorten >=0mm, shorten <=0mm, 
+		decoration={sl,raise=2mm},decorate}}
+\tikzset{parallel arrow2/.style={latex-,dashed,bcp,
+		shorten >=0mm, shorten <=0mm, 
+		decoration={sl,raise=1mm},decorate}}
+\tikzset{parallel arrow3/.style={latex-,dashed,bcp,
+		shorten >=0mm, shorten <=0mm, 
+		decoration={sl,raise=2mm},decorate}}
+\tikzset{% \tikzstyle is deprecated
+	block1/.style={ultra thick,color=blue},
+	block2/.style={ultra thick,color=green},
+	block3/.style={ultra thick,color=red},
+	block4/.style={ultra thick,color=yellow},
+	adjnode/.style={circle, draw=black, fill=white, align=center, thick},
+	parent1/.style={pcp},
+	parent2/.style={bcp},
+	matchbegin/.style={},
+	mismatch/.style={red!90!white},
+	lce1/.style={circle, inner sep=0mm, minimum size=5mm, fill=pcp,text=white},
+	lce2/.style={fill=bcp,text=white},
+	r/.style={dashed}
+}
+\tikzset{% \tikzstyle is deprecated
+	parrec/.style={blue,every mark/.append style={fill=blue!80!black},mark=*},
+	parlp/.style={red,every mark/.append style={fill=red!80!black},mark=square*},
+	parrnd/.style={brown!60!black,every mark/.append style={fill=brown!80!black},mark=otimes*},
+	parls/.style={black,mark=star},
+	pargr/.style={green,every mark/.append style={fill=green!80!black},mark=diamond*},
+	parrndk/.style={orange,densely dashed,every mark/.append style={solid,fill=orange!80!black},mark=*},
+	parrnddirk/.style={yellow!60!black,densely dashed,every mark/.append style={solid,fill=yellow!90!black},mark=square*}
+}
+
+\pgfplotscreateplotcyclelist{mycolorlist}{%
+	blue,every mark/.append style={fill=blue!80!black},mark=*\\%
+	red,every mark/.append style={fill=red!80!black},mark=square*\\%
+	brown!60!black,every mark/.append style={fill=brown!80!black},mark=otimes*\\%
+	black,mark=star\\%
+	green,every mark/.append style={fill=green!80!black},mark=diamond*\\%
+	orange,densely dashed,every mark/.append style={solid,fill=orange!80!black},mark=*\\%
+	yellow!60!black,densely dashed,every mark/.append style={solid,fill=yellow!90!black},mark=square*\\%
+	black,densely dashed,every mark/.append style={solid,fill=gray},mark=otimes*\\%
+	blue,densely dashed,every mark/.append style={fill=blue!80!black},mark=star\\%
+	red,densely dashed,every mark/.append style={solid,fill=red!80!black},mark=diamond*\\%
+	green,densely dashed,every mark/.append style={solid,fill=green!80!black},mark=*\\%
+}
+
+\pgfplotsset{
+	width=150mm,height=100mm,
+	major grid style={thin,dotted,color=black!50},
+	minor grid style={thin,dotted,color=black!50},
+	grid,
+	every axis/.append style={
+		line width=0.5pt,
+		tick style={
+			line cap=round,
+			thin,
+			major tick length=4pt,
+			minor tick length=2pt,
+		},
+	},
+	legend cell align=left,
+}
+
+% Math definitions
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+\newcommand{\Ovon}[1]{\ensuremath{\mathcal{O}\left(#1\right)}}
+\newcommand{\ovon}[1]{\ensuremath{o\left(#1\right)}}
+\newcommand{\Omegavon}[1]{\ensuremath{\Omega\left(#1\right)}}
+\newcommand{\Thetavon}[1]{\ensuremath{\Theta\left(#1\right)}}
+\newcommand{\card}[1]{\ensuremath{\lvert #1\rvert}}
+\newcommand{\set}[1]{\ensuremath{\left\lbrace #1\right\rbrace}}
+\newcommand{\interval}[2]{\ensuremath{\lbrack#1..#2\rbrack}}
+\newcommand{\abs}[1]{\card{#1}}
+\newcommand{\idx}[2]{\ensuremath{#1\lbrack#2\rbrack}}
+\newcommand{\euclid}[1]{\ensuremath{\parallel\nolinebreak[4]#1\nolinebreak[4]\parallel}}
+\newcommand{\scalar}[2]{\ensuremath{\left\langle#1,#2\right\rangle}}
+
+\newcommand{\lcespace}{$\Ovon{z\lg\left(\frac{N}{z}\right)}$\@\xspace}
+\newcommand{\lcetime}{$\Ovon{\lg\left(N\right)}$\@\xspace}
+\newcommand{\ttogtime}{$\Ovon{N}$\@\xspace}
+\newcommand{\ttogspace}{$\Ovon{N}$\@\xspace}
+\newcommand{\gtogtime}{$\Ovon{n\lg\left(\frac{N}{n}\right)}$\@\xspace}
+\newcommand{\gtogspace}{$\Ovon{n+z\lg\left(\frac{N}{z}\right)}$\@\xspace}
+\newcommand{\wordsize}{$\Omegavon{\lg\left(N\right)}$\@\xspace}
+\newcommand{\stringsize}{$\Ovon{\card{w}}$\@\xspace}
+\newcommand{\consttime}{$\Ovon{1}$\@\xspace}
+\newcommand{\linspace}{$\Ovon{N}$\@\xspace}
+\newcommand{\slpspace}{$\Ovon{n}$\@\xspace}
+\newcommand{\lcastspace}{$\Thetavon{N}$\@\xspace}
+\newcommand{\words}{\ensuremath{\Omegavon{\lg\left(N\right)}}}
+
+\newcommand{\leftpart}{\ensuremath{\Sigma^l}}
+\newcommand{\rightpart}{\ensuremath{\Sigma^r}}
+\newcommand{\blocksymb}{\ensuremath{c}}
+\newcommand{\leftsymb}{\ensuremath{c_l}}
+\newcommand{\rightsymb}{\ensuremath{c_r}}
+\newcommand{\trip}[3]{\ensuremath{\left(#1, #2, #3\right)}}
+\newcommand{\parti}[2]{\ensuremath{\left(#1, #2\right)}}
+\newcommand{\E}[1]{E\ensuremath{\left\lbrack#1\right\rbrack}}
+\newcommand{\Prob}[1]{Pr\ensuremath{\left\lbrack#1\right\rbrack}}
+
+\newcommand{\define}[1]{\emph{\color{blue}{#1}}}
+
+\newcommand{\BComp}{BComp}
+\newcommand{\PComp}{PComp}
+\newcommand{\TtoG}{TtoG}
+
+\newcommand{\sfspace}[1]{\textsf{#1}\@\xspace}
+\newcommand{\fastseqrecomp}{\sfspace{seq\_fast{}}}
+\newcommand{\hashrecomp}{\sfspace{seq\_hash{}}}
+\newcommand{\naiverecomp}{\sfspace{seq\_naive{}}}
+\newcommand{\parallelrecomp}{\sfspace{par\_undircut\_seq{}}}
+\newcommand{\parallellprecomp}{\sfspace{par\_undircut\_seq\_prod{}}}
+\newcommand{\parallelrndrecomp}{\sfspace{par\_random{}}}
+\newcommand{\parallelrnddirrecomp}{\sfspace{par\_random\_dir{}}}
+\newcommand{\parallelrndkrecomp}{\sfspace{par\_random10{}}}
+\newcommand{\parallelrnddirkrecomp}{\sfspace{par\_random\_dir10{}}}
+\newcommand{\parallellsrecomp}{\sfspace{par\_local\_search{}}}
+\newcommand{\parallellsgainrecomp}{\sfspace{par\_local\_search\_gain{}}}
+\newcommand{\parallelgrrecomp}{\sfspace{par\_greedy{}}}
+\newcommand{\simplevec}{\sfspace{SimpleVector}}
+
+\newcommand{\dsdblp}{\sfspace{dblp.xml}}
+\newcommand{\dsdna}{\sfspace{dna}}
+\newcommand{\dsenglish}{\sfspace{english}}
+\newcommand{\dsproteins}{\sfspace{proteins}}
+\newcommand{\dssources}{\sfspace{sources}}
+\newcommand{\dscoreutils}{\sfspace{coreutils}}
+\newcommand{\dsecoli}{\sfspace{Escherichia\_Coli}}
+\newcommand{\dseinsteinde}{\sfspace{einstein.de.txt}}
+\newcommand{\dseinsteinen}{\sfspace{einstein.en.txt}}
+\newcommand{\dsfib}{\sfspace{fib41}}
+\newcommand{\dskernel}{\sfspace{kernel}}
+\newcommand{\dswl}{\sfspace{world\_leaders}}
+
+\newcommand{\lce}{\sfspace{LCE}}
+\newcommand{\lcp}{\sfspace{LCP}}
+\newcommand{\lca}{\sfspace{LCA}}
+\newcommand{\cfg}{\sfspace{CFG}}
+\newcommand{\rmq}{\sfspace{RMQ}}
+\newcommand{\slp}{\sfspace{SLP}}
+\newcommand{\rlslp}{\sfspace{RLSLP}}
+\newcommand{\lz}{\sfspace{LZ77}}
+\newcommand{\extract}{\sfspace{Extract}}
+\newcommand{\bcomp}{\sfspace{\BComp}}
+\newcommand{\pcomp}{\sfspace{\PComp}}
+\newcommand{\ttog}{\sfspace{\TtoG}}
+\newcommand{\pseq}{\sfspace{PSeq}}
+\newcommand{\repair}{\sfspace{RePair}}
+\newcommand{\sequitur}{\sfspace{Sequitur}}
+\newcommand{\esp}{\sfspace{ESP}}
+\newcommand{\prezza}{\sfspace{prezza}}
+\newcommand{\naive}{\sfspace{naive}}
+\newcommand{\lcequery}[1]{\textsf{LCE}\ensuremath{\left(#1\right)}}
+\newcommand{\rmqquery}[2]{\textsf{RMQ}\ensuremath{_{#1}\left(#2\right)}}
+\newcommand{\ttogt}{\textsf{TtoG}\ensuremath{(T)}\@\xspace}
+\newcommand{\freq}[4]{\textsf{Freq}\ensuremath{_{#1}\left(#2,#3,#4\right)}\@\xspace}
+\newcommand{\pseqw}[1]{\textsf{PSeq}\ensuremath{\left(#1\right)}}
+\newcommand{\partition}[1]{\textsf{part}\ensuremath{\idx{}{#1}}}
+\newcommand{\occ}[1]{\textsf{occ}\ensuremath{\left(#1\right)}}
+\newcommand{\extr}[3]{\textsf{Extract}\ensuremath{_#1\left(#2,#3\right)}}
+
+\newcommand{\bcompalg}[3]{\textsf{BComp}\ensuremath{\left(#1, #2, #3\right)}}
+\newcommand{\pcompalg}[3]{\textsf{PComp}\ensuremath{\left(#1, #2, #3\right)}}
+
+\newcommand{\deriv}[2]{\ensuremath{\texttt{#1}\rightarrow\texttt{#2}}}
+
+\newcommand{\V}{\ensuremath{\mathcal{V}}}
+\newcommand{\D}{\ensuremath{\mathcal{D}}}
+\newcommand{\Dl}{\ensuremath{\mathcal{D}^l}}
+\newcommand{\Dr}{\ensuremath{\mathcal{D}^r}}
+\newcommand{\val}[2]{\ensuremath{val_{#1}\left(#2\right)}}
+
+
+% Specific include commands
+\newcommand{\includechapter}[1]{\input{chapters/#1}}
+\newcommand{\includepic}[1]{\input{pictures/#1}}
+\newcommand{\includeresult}[1]{\input{results/#1}}
+\newcommand{\includecompression}[1]{\includeresult{compression/#1}}
+\newcommand{\includelcequeries}[1]{\includeresult{lcequeries/#1}}
+\newcommand{\includelonglcequeries}[1]{\includeresult{longlcequeries/#1}}
+\newcommand{\includememory}[1]{\includeresult{memory/#1}}
+\newcommand{\includerandomaccess}[1]{\includeresult{randomaccess/#1}}
+\newcommand{\includeruntime}[1]{\includeresult{runtime/#1}}
+\newcommand{\includespeedup}[1]{\includeresult{speedup/#1}}
+\newcommand{\includesequential}[1]{\includeresult{sequential/#1}}
+\newcommand{\includegraphic}[2]{\includegraphics[#2]{pictures/#1}}
+
+\newcommand{\includeresults}[2]{
+	\foreach \res in #2{
+		\includeresult{#1/\res}
+	}
+}

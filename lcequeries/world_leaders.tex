@@ -1,0 +1,65 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+
+\pgfplotsset{
+    width=150mm,height=100mm,
+    major grid style={thin,dotted,color=black!50},
+    minor grid style={thin,dotted,color=black!50},
+    grid,
+    every axis/.append style={
+        line width=0.5pt,
+        tick style={
+            line cap=round,
+            thin,
+            major tick length=4pt,
+            minor tick length=2pt,
+        },
+    },
+    legend cell align=left,
+    legend pos=north west,
+}
+
+\begin{document}
+    % IMPORT-DATA ra results_final/lce_queries_filter.txt
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit zufällige LCE-Queries (world\_leaders, 3 Iterationen, 46 MB)},
+        xlabel={Anfragen in Mio.},
+        ylabel={Zeit in sec},
+        legend pos=north west
+        ]
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="recompression" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,46.3333) (10,92.6147) (15,138.789) (20,184.951) (25,231.433) (30,276.644) (35,323.943) (40,370.364) (45,415.709) (50,460.745) };
+        \addlegendentry{recompression};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="prezza" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,6.99833) (10,13.9777) (15,20.9553) (20,27.95) (25,34.9163) (30,41.9057) (35,48.8657) (40,55.8663) (45,62.8147) (50,69.84) };
+        \addlegendentry{prezza};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="rmq" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,65.6483) (10,131.309) (15,196.94) (20,262.557) (25,328.264) (30,393.906) (35,459.547) (40,525.2) (45,590.826) (50,656.529) };
+        \addlegendentry{rmq};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="naive" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,0.228) (10,0.454) (15,0.683) (20,0.908) (25,1.136) (30,1.365) (35,1.585) (40,1.815) (45,2.04333) (50,2.272) };
+        \addlegendentry{naive};
+
+\end{axis}
+    \end{tikzpicture}
+\end{document}

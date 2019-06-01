@@ -1,0 +1,56 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit - Produktionen (fib41, 8 Kerne, 3 Iterationen)},
+        xlabel={Produktionen},
+        ylabel={Zeit in sec},
+        bar shift=0pt,
+        x filter/.code={\pgfmathparse{#1/1}\pgfmathresult},
+        y filter/.code={\pgfmathparse{#1/1000}\pgfmathresult},
+        yticklabel style={/pgf/number format/precision=2},
+        legend pos=outer north east
+        ]
+        \addplot[only marks,parrec] coordinates {
+                    (78, 6977)(78, 7169)(78, 7247)
+        };
+        \addlegendentry{\parallelrecomp};
+        \addplot[only marks,parlp] coordinates {
+                    (78, 7626)(78, 7345)(78, 7761)
+        };
+        \addlegendentry{\parallellprecomp};
+        \addplot[only marks,parrnd] coordinates {
+                    (105, 7964)(98, 7183)(99, 8038)
+        };
+        \addlegendentry{\parallelrndrecomp};
+        \addplot[only marks,parls] coordinates {
+                    (82, 12114)(83, 12734)(94, 12726)
+        };
+        \addlegendentry{\parallellsrecomp};
+        \addplot[only marks,pargr] coordinates {
+                    (78, 8139)(78, 8185)(79, 8159)
+        };
+        \addlegendentry{\parallelgrrecomp};
+        \addplot[only marks,parrndk] coordinates {
+                    (79, 9157)(83, 9150)(79, 9417)
+        };
+        \addlegendentry{\parallelrndkrecomp};
+        \addplot[only marks,parrnddirk] coordinates {
+                    (80, 9088)(79, 8818)(79, 8884)
+        };
+        \addlegendentry{\parallelrnddirkrecomp};
+\end{axis}
+    \end{tikzpicture}\end{document}

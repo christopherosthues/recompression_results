@@ -1,0 +1,63 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+
+    % IMPORT-DATA recomp results_final/fin/time.txt
+
+    \begin{tikzpicture}
+        \begin{semilogyaxis}[
+        log basis y=10,
+        cycle list name=mycolorlist,
+        title={Laufzeitskalierung Recompression (einstein.de.txt, 3 Iterationen, 92 MB)},
+        xlabel={Kerne},
+        ylabel={Zeit in sec},
+        legend pos=outer north east
+        ]
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,55.5017) (2,32.3487) (4,18.453) (6,13.88) (8,11.4817) (10,10.0873) (12,9.17333) (14,8.551) (16,8.062) (18,7.684) (20,7.426) };
+        \addlegendentry{\parallelrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_lp_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,56.8423) (2,33.74) (4,19.1397) (6,14.238) (8,11.8517) (10,10.372) (12,9.45833) (14,8.755) (16,8.215) (18,7.83133) (20,7.55433) };
+        \addlegendentry{\parallellprecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnd_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,72.9877) (2,40.2387) (4,20.9027) (6,14.019) (8,10.9997) (10,9.05867) (12,7.87) (14,6.91033) (16,6.22667) (18,5.51167) (20,5.393) };
+        \addlegendentry{\parallelrndrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_ls_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,122.321) (2,64.5057) (4,38.9187) (6,28.3617) (8,27.9573) (10,17.0207) (12,18.8107) (14,13.3053) (16,12.103) (18,14.347) (20,13.3737) };
+        \addlegendentry{\parallellsrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_gr_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,71.0243) (2,40.0447) (4,20.727) (6,14.8207) (8,11.046) (10,8.97067) (12,7.99033) (14,6.88867) (16,6.18733) (18,5.666) (20,5.37933) };
+        \addlegendentry{\parallelgrrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnd10_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,104.034) (2,62.532) (4,32.3677) (6,22.2743) (8,16.908) (10,13.8777) (12,11.926) (14,10.499) (16,9.43233) (18,8.57133) (20,8.02567) };
+        \addlegendentry{\parallelrndkrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnddir10_recompression" AND dataset="einstein.de.txt" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,102.318) (2,59.931) (4,31.4653) (6,21.381) (8,16.5743) (10,13.5183) (12,11.6247) (14,10.073) (16,9.14867) (18,8.34067) (20,7.75767) };
+        \addlegendentry{\parallelrnddirkrecomp};
+
+\end{semilogyaxis}
+    \end{tikzpicture}
+\end{document}

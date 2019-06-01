@@ -1,0 +1,67 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+
+\input{../header}
+
+\pgfplotsset{
+    width=150mm,height=100mm,
+    major grid style={thin,dotted,color=black!50},
+    minor grid style={thin,dotted,color=black!50},
+    grid,
+    every axis/.append style={
+        line width=0.5pt,
+        tick style={
+            line cap=round,
+            thin,
+            major tick length=4pt,
+            minor tick length=2pt,
+        },
+    },
+    legend cell align=left,
+    legend pos=north west,
+}
+
+\begin{document}
+
+    % IMPORT-DATA ra results_final/lce_queries_filter.txt
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit zufällige LCE-Queries (coreutils, 3 Iterationen, 205 MB)},
+        xlabel={Anfragen in Mio.},
+        ylabel={Zeit in sec},
+        legend pos=north west
+        ]
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="recompression" AND dataset="coreutils" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,51.2953) (10,102.15) (15,153.211) (20,204.219) (25,255.129) (30,303.692) (35,354.549) (40,406.84) (45,454.71) (50,508.923) };
+        \addlegendentry{recompression};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="prezza" AND dataset="coreutils" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,2.747) (10,5.49733) (15,8.24567) (20,10.9913) (25,13.7423) (30,14.9907) (35,17.471) (40,19.9657) (45,22.4613) (50,26.6693) };
+        \addlegendentry{prezza};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="rmq" AND dataset="coreutils" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,82.0673) (10,164.058) (15,245.98) (20,327.812) (25,425.549) (30,547.975) (35,639.461) (40,730.805) (45,821.909) (50,826.974) };
+        \addlegendentry{rmq};
+
+        %% MULTIPLOT(algo) SELECT queries / 1000000 AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM ra WHERE algo="naive" AND dataset="coreutils" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (5,0.218) (10,0.437) (15,0.661333) (20,0.880667) (25,0.987333) (30,0.910667) (35,1.06167) (40,1.213) (45,1.365) (50,2.20567) };
+        \addlegendentry{naive};
+
+\end{axis}
+    \end{tikzpicture}
+\end{document}

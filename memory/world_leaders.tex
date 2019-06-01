@@ -1,0 +1,82 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+    % IMPORT-DATA recomp results_final/fin/memory.txt
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Vergleich des Speicherverbrauchs (world\_leaders, 46 MB)},
+        xlabel={Kerne},
+        ylabel={Größe in MB},
+        legend cell align=left,
+        legend pos=outer north east
+        ]
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_recompression" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,291.876) (2,294.106) (4,298.387) (6,302.669) (8,306.95) (10,311.232) (12,315.514) (14,319.795) (16,324.077) (18,328.358) (20,332.64) };
+        \addlegendentry{\parallelrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_lp_recompression" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,291.876) (2,294.106) (4,298.387) (6,302.669) (8,306.95) (10,311.232) (12,315.514) (14,319.795) (16,324.077) (18,328.358) (20,332.64) };
+        \addlegendentry{\parallellprecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnd_recompression" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,291.874) (2,294.104) (4,298.386) (6,302.667) (8,306.949) (10,311.23) (12,315.512) (14,319.793) (16,324.075) (18,328.356) (20,332.638) };
+        \addlegendentry{\parallelrndrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_ls_recompression" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,291.875) (2,294.105) (4,298.387) (6,302.668) (8,306.95) (10,311.231) (12,315.513) (14,319.794) (16,324.076) (18,328.357) (20,332.639) };
+        \addlegendentry{\parallellsrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_gr_recompression" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,291.874) (2,294.104) (4,298.386) (6,302.667) (8,306.949) (10,311.23) (12,315.512) (14,319.793) (16,324.075) (18,328.356) (20,332.638) };
+        \addlegendentry{\parallelgrrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnd10_recompression" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,291.874) (2,294.104) (4,298.386) (6,302.667) (8,306.949) (10,311.23) (12,315.512) (14,319.793) (16,324.075) (18,328.356) (20,332.638) };
+        \addlegendentry{\parallelrndkrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnddir10_recompression" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,291.874) (2,294.104) (4,298.386) (6,302.667) (8,306.949) (10,311.23) (12,315.512) (14,319.793) (16,324.075) (18,328.357) (20,332.638) };
+        \addlegendentry{\parallelrnddirkrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="fast_seq_recompression" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,301.249) };
+        \addlegendentry{\fastseqrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="hash_recompression" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,284.465) };
+        \addlegendentry{\hashrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="naive_recompression" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,345.384) };
+        \addlegendentry{\naiverecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(memory) * 1.0 / 1000000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="esp" AND dataset="world\_leaders" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,223.9672) };
+        \addlegendentry{\esp};
+
+\end{axis}
+    \end{tikzpicture}
+\end{document}

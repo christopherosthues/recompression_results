@@ -1,0 +1,57 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Laufzeit - Produktionen (english, 8 Kerne, 3 Iterationen)},
+        xlabel={Produktionen in Mio.},
+        ylabel={Zeit in min},
+        bar shift=0pt,
+        x filter/.code={\pgfmathparse{#1/1000000}\pgfmathresult},
+        y filter/.code={\pgfmathparse{#1/60000}\pgfmathresult},
+        yticklabel style={/pgf/number format/precision=2},
+        legend pos=outer north east
+        ]
+        \addplot[only marks,parrec] coordinates {
+                    (208661402, 436574)(208661402, 439007)(208661402, 436625)
+        };
+        \addlegendentry{\parallelrecomp};
+        \addplot[only marks,parlp] coordinates {
+                    (192904592, 446602)(192904592, 450926)(192904592, 446626)
+        };
+        \addlegendentry{\parallellprecomp};
+        \addplot[only marks,parrnd] coordinates {
+                    (231292512, 413914)(234356012, 414516)(232649637, 412816)
+        };
+        \addlegendentry{\parallelrndrecomp};
+        \addplot[only marks,parls] coordinates {
+                    (225236124, 695142)(230577652, 873730)(227126214, 619495)
+        };
+        \addlegendentry{\parallellsrecomp};
+        \addplot[only marks,pargr] coordinates {
+                    (230460745, 452272)(232104929, 457493)(228389043, 444108)
+        };
+        \addlegendentry{\parallelgrrecomp};
+        \addplot[only marks,parrndk] coordinates {
+                    (228327937, 899348)(226834122, 883862)(230174898, 894678)
+        };
+        \addlegendentry{\parallelrndkrecomp};
+        \addplot[only marks,parrnddirk] coordinates {
+                    (231730263, 921504)(230043110, 876723)(230556839, 870491)
+        };
+        \addlegendentry{\parallelrnddirkrecomp};
+\end{axis}
+    \end{tikzpicture}\end{document}

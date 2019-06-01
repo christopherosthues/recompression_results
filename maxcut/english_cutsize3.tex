@@ -1,0 +1,57 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+
+    \begin{tikzpicture}
+        \begin{axis}[
+        cycle list name=mycolorlist,
+        title={Durchschnittl. Wert des Schnitts (english, 3 Iterationen, Schicht 3)},
+        xlabel={Kerne},
+        ylabel={Wert des Schnitts in Mio.},
+        y filter/.code={\pgfmathparse{#1/1000000}\pgfmathresult},
+        bar shift=0pt,
+        yticklabel style={/pgf/number format/precision=2},
+        legend pos=outer north east
+        ]
+        \addplot coordinates {
+                    (1, 893793594.0)(2, 893793594.0)(4, 893793594.0)(6, 893793594.0)(8, 893793594.0)(10, 893793594.0)(12, 893793594.0)(14, 893793594.0)(16, 893793594.0)(18, 893793594.0)(20, 893793594.0)
+        };
+        \addlegendentry{\parallelrecomp};
+        \addplot coordinates {
+                    (1, 972276912.0)(2, 972276912.0)(4, 972276912.0)(6, 972276912.0)(8, 972276912.0)(10, 972276912.0)(12, 972276912.0)(14, 972276912.0)(16, 972276912.0)(18, 972276912.0)(20, 972276912.0)
+        };
+        \addlegendentry{\parallellprecomp};
+        \addplot coordinates {
+                    (1, 770992890.3333334)(2, 808529308.3333334)(4, 858321412.6666666)(6, 773069470.0)(8, 817617826.6666666)(10, 804492169.3333334)(12, 798625236.0)(14, 821076465.3333334)(16, 780779432.0)(18, 799265493.6666666)(20, 786829818.6666666)
+        };
+        \addlegendentry{\parallelrndrecomp};
+        \addplot coordinates {
+                    (1, 1186241438.0)(2, 601140785.3333334)(4, 882562480.6666666)(6, 585545755.3333334)(8, 638455759.0)(10, 540943698.0)(12, 659217708.3333334)(14, 227457844.0)(16, 416579320.6666667)(18, 458335824.0)(20, 324271324.3333333)
+        };
+        \addlegendentry{\parallellsrecomp};
+        \addplot coordinates {
+                    (1, 842358384.6666666)(2, 750656808.0)(4, 826492247.3333334)(6, 822882847.0)(8, 861160450.6666666)(10, 889188261.3333334)(12, 904825174.6666666)(14, 809365666.0)(16, 866111594.0)(18, 819425034.0)(20, 824371751.0)
+        };
+        \addlegendentry{\parallelgrrecomp};
+        \addplot coordinates {
+                    (1, 817856270.3333334)(2, 854817081.0)(4, 819092360.6666666)(6, 854290849.0)(8, 845457262.0)(10, 831486624.0)(12, 826666381.0)(14, 809360432.0)(16, 825926462.0)(18, 830095265.3333334)(20, 845447248.6666666)
+        };
+        \addlegendentry{\parallelrndkrecomp};
+        \addplot coordinates {
+                    (1, 821221514.0)(2, 822853143.0)(4, 846956859.6666666)(6, 822104326.6666666)(8, 840458272.6666666)(10, 832350199.3333334)(12, 832344002.6666666)(14, 818142167.3333334)(16, 818275935.0)(18, 843378126.6666666)(20, 837410810.3333334)
+        };
+        \addlegendentry{\parallelrnddirkrecomp};
+        
+\end{axis}
+    \end{tikzpicture}
+    \end{document}

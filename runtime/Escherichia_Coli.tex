@@ -1,0 +1,64 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+
+
+    % IMPORT-DATA recomp results_final/fin/time.txt
+
+    \begin{tikzpicture}
+        \begin{semilogyaxis}[
+        log basis y=10,
+        cycle list name=mycolorlist,
+        title={Laufzeitskalierung Recompression (Escherichia\_Coli, 3 Iterationen, 112 MB)},
+        xlabel={Kerne},
+        ylabel={Zeit in sec},
+        legend pos=outer north east
+        ]
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_recompression" AND dataset="Escherichia\_Coli" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,59.085) (2,34.4607) (4,19.9727) (6,15.4337) (8,12.791) (10,11.1967) (12,10.3263) (14,9.635) (16,9.07333) (18,8.65367) (20,8.36833) };
+        \addlegendentry{\parallelrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_lp_recompression" AND dataset="Escherichia\_Coli" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,63.3803) (2,35.6673) (4,20.457) (6,15.6507) (8,13.0297) (10,11.4003) (12,10.3523) (14,9.64933) (16,9.04167) (18,8.63967) (20,8.302) };
+        \addlegendentry{\parallellprecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnd_recompression" AND dataset="Escherichia\_Coli" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,84.821) (2,45.459) (4,24.3847) (6,17.4577) (8,12.8017) (10,11.192) (12,9.45267) (14,8.25) (16,7.89767) (18,7.07433) (20,7.35667) };
+        \addlegendentry{\parallelrndrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_ls_recompression" AND dataset="Escherichia\_Coli" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,117.724) (2,80.5877) (4,56.102) (6,41.373) (8,29.5263) (10,39.9383) (12,19.7657) (14,16.0677) (16,23.0973) (18,18.6997) (20,16.0547) };
+        \addlegendentry{\parallellsrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_gr_recompression" AND dataset="Escherichia\_Coli" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,82.5297) (2,46.6633) (4,25.618) (6,17.2567) (8,13.7023) (10,11.0447) (12,9.80367) (14,8.76433) (16,7.796) (18,7.25967) (20,7.08533) };
+        \addlegendentry{\parallelgrrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnd10_recompression" AND dataset="Escherichia\_Coli" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,133.938) (2,77.033) (4,40.3897) (6,28.316) (8,21.667) (10,18.0943) (12,15.34) (14,13.731) (16,12.2663) (18,11.2243) (20,10.6063) };
+        \addlegendentry{\parallelrndkrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnddir10_recompression" AND dataset="Escherichia\_Coli" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,134.739) (2,77.067) (4,40.035) (6,27.818) (8,21.5217) (10,17.8497) (12,15.429) (14,13.608) (16,12.2907) (18,11.2357) (20,10.561) };
+        \addlegendentry{\parallelrnddirkrecomp};
+
+\end{semilogyaxis}
+    \end{tikzpicture}
+\end{document}

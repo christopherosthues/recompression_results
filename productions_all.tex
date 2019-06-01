@@ -1,0 +1,42 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\input{header}
+\begin{document}
+% IMPORT-DATA productions productions.txt
+\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|}
+\hline
+Datensatz/Verfahren & \parallelrecomp & \parallellprecomp & \hashrecomp & \naiverecomp & \esp & \parallelrndrecomp & \parallelgrrecomp & \parallellsrecomp & \parallelrndkrecomp & \parallelrnddirkrecomp \\ \hline\hline
+%% TABULAR REFORMAT(row 0-19=(min=bold max=emph))
+%% SELECT s.dataset AS x,
+%% (SELECT SUM(production) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(production) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_lp_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(production) / 3.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "hash_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(production) / 3.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "naive_recompression" GROUP BY s1.dataset),
+%% (SELECT production FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "esp" GROUP BY s1.dataset),
+%% (SELECT SUM(production) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_rnd_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(production) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_gr_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(production) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_ls_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(production) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_rnd10_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(production) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_rnddir10_recompression" GROUP BY s1.dataset)
+%% FROM productions s GROUP BY s.dataset
+Escherichia\_Coli &     4490138.0 &            4484830.0 &     4473122.0 &  \textbf{4472684.0} &  \emph{5204793} &        5050624.79 & 4980810.85 &        4935512.67 & 4955751.15 & 4958219.39 \\
+        coreutils &     3399440.0 &   \textbf{3290212.0} &     3345439.0 &           3314799.0 &  \emph{4082363} &        3913901.85 & 3851083.85 &        3791053.94 &  3886357.70 &        3886346.0 \\
+         dblp.xml &    20851889.0 &           20870574.0 &    20916209.0 & \textbf{20725251.0} &        24381042 & \emph{24626857.91} & 24436330.12 &         23459610.97 & 23907042.94 & 23853479.42 \\
+              dna &    48015995.0 &  \textbf{48015931.0} &    48281897.0 &          48263313.0 &        48090739 &        51193710.30 & 50481684.42 & \emph{51344162.21} & 50221354.39 & 50240386.48 \\
+  einstein.de.txt &      101513.0 &     \textbf{96346.0} &       99077.0 &            101316.0 &   \emph{133552} &        121467.79 & 118458.33 &        112187.24 & 118845.09 &  118733.97 \\
+  einstein.en.txt &      268409.0 &    \textbf{266133.0} &      270014.0 &            268165.0 &   \emph{345798} &         322668.97 & 320061.91 &        303835.24 & 316592.30 & 316566.36 \\
+          english &   208661402.0 & \textbf{192904592.0} &   202257293.0 &         206784697.0 &       225759796 &      \emph{232259326.0} &  230949608.30 &         227840869.30 & 230196278.48 & 230292908.79 \\
+            fib41 & \textbf{78.0} &        \textbf{78.0} & \textbf{78.0} &       \textbf{78.0} &      \emph{122} &        97.56 & 78.27 &        89.64 & 79.61 & 80.12 \\
+           kernel &     1842236.0 &            1828613.0 &     1806513.0 &  \textbf{1793611.0} &  \emph{2212770} &        2110986.36 & 2076579.39 &        2061681.67 & 2090008.33 & 2089886.18 \\
+         proteins &   152091584.0 & \textbf{151863578.0} &   152308115.0 &         152497905.0 &       154111239 &        159373143.06 & 158692125.55 & \emph{168374332.33} & 158713389.82 & 158735287.58 \\
+          sources &    24972327.0 &           24952070.0 &    25281678.0 & \textbf{24436041.0} & \emph{28733467} &         28355909.03 & 28046065.82 &        28142108.12 &       28070818.0 & 28051045.85 \\
+   world\_leaders &      503571.0 &    \textbf{449801.0} &      503752.0 &            511825.0 &   \emph{668703} &        598134.48 & 589265.76 &        563149.85 &  592936.03 & 593030.52 \\
+% END TABULAR SELECT s.dataset AS x, (SELECT SUM(production) / 33.0 FROM pro...)
+\hline
+\end{tabular}
+\end{document}

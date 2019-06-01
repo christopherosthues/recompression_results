@@ -1,0 +1,37 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\input{header}
+\begin{document}
+	% IMPORT-DATA stats text_statistics.txt
+	
+	\begin{tabular}{|l||r|r|}
+		\hline
+		Datensatz & Größe in MB & $\sigma$ \\ \hline\hline
+		%% TABULAR
+		%% SELECT s.dataset AS x, (s.size / 1000 / 1000), s.alphabet
+		%% FROM stats s ORDER BY s.dataset ASC
+  Escherichia\_Coli &  112 &  15 \\
+          coreutils &  205 & 236 \\
+           dblp.xml &  296 &  97 \\
+                dna &  403 &  16 \\
+    einstein.de.txt &   92 & 117 \\
+    einstein.en.txt &  467 & 139 \\
+            english & 2210 & 239 \\
+              fib41 &  267 &   2 \\
+             kernel &  257 & 160 \\
+           proteins & 1184 &  27 \\
+            sources &  210 & 230 \\
+     world\_leaders &   46 &  89 \\
+  % END TABULAR SELECT s.dataset AS x, (s.size / 1000 / 1000), s.alphabet FROM ...
+  		\hline
+	\end{tabular}
+    \end{document}
+%	\caption{Statistiken der Testdaten}
+%	\label{tab:text_statistics}
+%\end{center}
+%\end{table}

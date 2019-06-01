@@ -1,0 +1,66 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\input{../header}
+\begin{document}
+
+
+    % IMPORT-DATA recomp results_final/fin/time.txt
+
+    \begin{tikzpicture}
+        \begin{semilogyaxis}[
+        log basis y=10,
+        cycle list name=mycolorlist,
+        title={Laufzeitskalierung Recompression (sources, 3 Iterationen, 210 MB)},
+        xlabel={Kerne},
+        ylabel={Zeit in sec},
+        log ticks with fixed point,
+        y tick label style={/pgf/number format/1000 sep=\,},
+        legend pos=outer north east
+        ]
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_recompression" AND dataset="sources" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,161.707) (2,94.7337) (4,54.9623) (6,41.1857) (8,34.0943) (10,30.1993) (12,27.5763) (14,25.702) (16,24.3787) (18,23.2143) (20,22.4467) };
+        \addlegendentry{\parallelrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_lp_recompression" AND dataset="sources" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,163.291) (2,96.7833) (4,55.966) (6,41.3807) (8,34.2687) (10,30.135) (12,27.244) (14,25.332) (16,23.88) (18,22.767) (20,21.894) };
+        \addlegendentry{\parallellprecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnd_recompression" AND dataset="sources" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,240.004) (2,133.944) (4,71.3887) (6,49.0113) (8,39.127) (10,32.5833) (12,29.1963) (14,25.9337) (16,23.8267) (18,22.0047) (20,20.9703) };
+        \addlegendentry{\parallelrndrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_ls_recompression" AND dataset="sources" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,310.023) (2,186.996) (4,103.3) (6,62.777) (8,56.79) (10,47.2923) (12,40.637) (14,37.544) (16,50.417) (18,33.8237) (20,41.0343) };
+        \addlegendentry{\parallellsrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_gr_recompression" AND dataset="sources" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,235.32) (2,133.435) (4,71.1287) (6,49.93) (8,38.5723) (10,33.152) (12,28.4693) (14,25.66) (16,23.3547) (18,21.6047) (20,20.34) };
+        \addlegendentry{\parallelgrrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnd10_recompression" AND dataset="sources" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,473.877) (2,271.204) (4,141.08) (6,97.75) (8,74.3827) (10,61.7793) (12,51.5287) (14,45.8803) (16,42.1097) (18,38.193) (20,35.1303) };
+        \addlegendentry{\parallelrndkrecomp};
+
+        %% MULTIPLOT(algo) SELECT cores AS x, (SUM(time) / 3.0 / 1000) AS y, MULTIPLOT
+        %% FROM recomp WHERE algo="parallel_rnddir10_recompression" AND dataset="sources" GROUP BY MULTIPLOT,x ORDER BY MULTIPLOT,x
+        \addplot coordinates { (1,486.547) (2,275.164) (4,141.131) (6,97.8823) (8,74.7967) (10,60.9043) (12,52.182) (14,45.9527) (16,41.8957) (18,37.5573) (20,35.2113) };
+        \addlegendentry{\parallelrnddirkrecomp};
+
+        \end{semilogyaxis}
+    \end{tikzpicture}
+\end{document}

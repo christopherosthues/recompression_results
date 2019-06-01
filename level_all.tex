@@ -1,0 +1,41 @@
+\documentclass[10pt,a4paper]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\input{header}
+\begin{document}
+% IMPORT-DATA productions time.txt
+\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|}
+\hline
+Datensatz/Verfahren & \parallelrecomp & \parallellprecomp & \hashrecomp & \naiverecomp & \parallelrndrecomp & \parallelgrrecomp & \parallellsrecomp & \parallelrndkrecomp & \parallelrnddirkrecomp \\ \hline\hline
+%% TABULAR REFORMAT(row 0-19=(min=bold max=emph) precision=2)
+%% SELECT s.dataset AS x,
+%% (SELECT SUM(level) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(level) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_lp_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(level) / 3.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "hash_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(level) / 3.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "naive_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(level) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_rnd_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(level) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_gr_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(level) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_ls_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(level) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_rnd10_recompression" GROUP BY s1.dataset),
+%% (SELECT SUM(level) / 33.0 FROM productions s1 WHERE s1.dataset = s.dataset AND s1.algo = "parallel_rnddir10_recompression" GROUP BY s1.dataset)
+%% FROM productions s GROUP BY s.dataset
+Escherichia\_Coli &          70.0 &          68.0 & \textbf{64.0} &          68.0 & \emph{122.12} & 112.42 & 96.85 & 112.24 & 112.12 \\
+        coreutils &          70.0 &          72.0 & \textbf{68.0} &          70.0 & \emph{127.88} & 118.06 & 96.91 & 118.0 & 118.42 \\
+         dblp.xml &          72.0 &          72.0 & \textbf{68.0} &          72.0 & \emph{130.48} & 121.33 & 94.67 & 120.97 & 121.03 \\
+              dna &          72.0 &          74.0 & \textbf{68.0} &          74.0 & \emph{130.91} & 121.58 & 99.15 &  120.30 & 120.55 \\
+  einstein.de.txt & \textbf{68.0} & \textbf{68.0} & \textbf{68.0} &          70.0 & \emph{122.85} & 111.52 & 99.21 & 111.46 & 111.76 \\
+  einstein.en.txt &          78.0 &          76.0 & \textbf{74.0} &          76.0 & \emph{133.82} & 124.24 & 111.09 & 122.85 & 122.79 \\
+          english &          80.0 &          82.0 & \textbf{72.0} &          80.0 & \emph{145.09} & 135.88 & 103.27 & 135.82 & 135.39 \\
+            fib41 & \textbf{42.0} & \textbf{42.0} & \textbf{42.0} & \textbf{42.0} & \emph{90.12} & 44.48 & 70.36 & 47.52 & 48.30 \\
+           kernel &          72.0 &          72.0 & \textbf{70.0} &          74.0 & \emph{129.33} & 119.70 & 97.70 & 119.64 & 119.88 \\
+         proteins &          80.0 &          80.0 & \textbf{74.0} &          80.0 & \emph{139.88} & 131.21 & 113.94 & 130.91 & 131.09 \\
+          sources &          72.0 &          70.0 & \textbf{66.0} &          72.0 & \emph{127.94} & 118.73 & 93.27 & 118.61 & 118.61 \\
+   world\_leaders &          64.0 &          64.0 & \textbf{62.0} &          64.0 & \emph{113.82} & 103.76 & 86.73 & 103.76 & 103.76 \\
+% END TABULAR SELECT s.dataset AS x, (SELECT SUM(level) / 33.0 FROM producti...)
+\hline
+\end{tabular}
+\end{document}
