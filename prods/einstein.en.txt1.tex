@@ -11,45 +11,47 @@
 \pgfplotsset{compat=1.15}
 \input{../header}
 \begin{document}
+
     \begin{tikzpicture}
         \begin{axis}[
         cycle list name=mycolorlist,
-        title={Laufzeit - Produktionen (proteins, 8 Kerne, 3 Iterationen)},
-        xlabel={Produktionen in Mio.},
+        title={Laufzeit - Produktionen (einstein.en.txt, 1 Kern, 3 Iterationen)},
+        xlabel={Produktionen in Tausend},
         ylabel={Zeit in min},
         bar shift=0pt,
-        x filter/.code={\pgfmathparse{#1/1000000}\pgfmathresult},
+        x filter/.code={\pgfmathparse{#1/1000}\pgfmathresult},
         y filter/.code={\pgfmathparse{#1/60000}\pgfmathresult},
         yticklabel style={/pgf/number format/precision=2},
         legend pos=outer north east
         ]
         \addplot[only marks,parrec] coordinates {
-                    (152091584, 273007)(152091584, 274223)(152091584, 273722)
+                    (268409, 291912)(268409, 288624)(268409, 287884)
         };
         \addlegendentry{\parallelrecomp};
         \addplot[only marks,parlp] coordinates {
-                    (151863578, 274871)(151863578, 275560)(151863578, 274076)
+                    (266133, 306091)(266133, 304911)(266133, 300662)
         };
         \addlegendentry{\parallellprecomp};
         \addplot[only marks,parrnd] coordinates {
-                    (159461954, 259880)(159546827, 260583)(158962880, 260014)
+                    (320334, 370523)(322026, 378790)(320640, 374057)
         };
         \addlegendentry{\parallelrndrecomp};
         \addplot[only marks,parls] coordinates {
-                    (166285388, 507398)(173792518, 1954878)(163099876, 855027)
+                    (296771, 491717)(294750, 600777)(311090, 650118)
         };
         \addlegendentry{\parallellsrecomp};
         \addplot[only marks,pargr] coordinates {
-                    (158389046, 275184)(158869723, 275800)(158578650, 274095)
+                    (320365, 387324)(318572, 375502)(318190, 380841)
         };
         \addlegendentry{\parallelgrrecomp};
         \addplot[only marks,parrndk] coordinates {
-                    (158624915, 521558)(158592090, 520635)(158831954, 515559)
+                    (313559, 568614)(318391, 569153)(318559, 577911)
         };
         \addlegendentry{\parallelrndkrecomp};
         \addplot[only marks,parrnddirk] coordinates {
-                    (159008762, 530881)(158899417, 524646)(158947096, 527372)
+                    (314443, 554248)(314594, 553658)(319013, 581995)
         };
         \addlegendentry{\parallelrnddirkrecomp};
 \end{axis}
-    \end{tikzpicture}\end{document}
+    \end{tikzpicture}
+\end{document}
